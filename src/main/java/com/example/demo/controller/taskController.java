@@ -36,7 +36,7 @@ public class taskController {
     }
 
     @PostMapping("/form")
-    public String create(Task task){
+    public String create(@ResquestBody Task task){
         System.out.println("Cadastrando tarefa..." + task);
         return "form";
     }
