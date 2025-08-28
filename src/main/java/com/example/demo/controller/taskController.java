@@ -29,4 +29,16 @@ public class taskController {
 
         return "tasks";
     }
+
+    @GetMapping("/form")
+    public String showForm(){
+        return "form";
+    }
+
+    @PostMapping("/form")
+    public String create(Task task){
+        System.out.println("Cadastrando tarefa..." + task);
+        return "form";
+    }
+
 }
