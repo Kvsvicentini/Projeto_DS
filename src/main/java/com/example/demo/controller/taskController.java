@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/tasks")
 public class taskController {
+
+    private List<Task> repository = new ArrayList<>();
     
     @GetMapping("/tasks")
     public String listTasks(Model model) {
