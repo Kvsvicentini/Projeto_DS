@@ -11,30 +11,30 @@
 
 <body>
 
-    <form class="mx-auto mt-8 w-lg" method="post">
+    <form class="mx-auto mt-8 w-lg" method="post" th:object="${task}">
         <h2 class="text-2xl font-bold text-primary">Nova Tarefa</h2>
 
         <fieldset class="fieldset">
             <legend class="fieldset-legend">Título</legend>
-            <input name="title" type="text" class="input" placeholder="Digita a tarefa" />
-            <p class="label">Campo obrigatório</p>
+            <input name="title" type="text" class="input" placeholder="Digite o nome da tarefa" />
+            <p class="label text-error" th:errors="*{title}"></p>
         </fieldset>
 
         <fieldset class="fieldset">
             <legend class="fieldset-legend">Descrição</legend>
             <input name="descrition" type="text" class="input" placeholder="Descreva a tarefa" />
-            <p class="label">Descreva a tarefa em 10 caracteres</p>
+            <p class="label text-error" th:errors="*{description}"></p>
         </fieldset>
 
         <fieldset class="fieldset">
             <legend class="fieldset-legend">Pontos</legend>
             <input name="score" type="number" class="input" />
-            <p class="label">De a quantidade de pontos</p>
+            <p class="label text-error" th:errors="*{score}"></p>
         </fieldset>
 
         <div>
-            <a href="/tasks" class="btn btn-neutral">Cancelar</a>
-            <button class="btn btn-primary">Salvar</button>
+            <a href="/tasks" class="btn btn-neutral">Voltar para Tarefas</a>
+            <button class="btn btn-primary">Salvar Tarefas</button>
         </div>
 
     </form>

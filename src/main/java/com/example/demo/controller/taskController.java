@@ -1,16 +1,16 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.model.Task;
 import com.example.demo.repository.TaskRepository;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +40,9 @@ public class taskController {
     }
 
     @PostMapping("/form")
-    public String create(Task task, RedirectAttributes redirect){
+    public String create(@Valid Task task, BindingResult result, RedirectAttributes redirect ){
+        if(result.hasErrors()) return "form";
+
         System.out.println("Cadastrando tarefa..." + task);
         repository.save(task);
         redirect.addFlashAttribute("message", "Tarefa cadastrada com sucesso");

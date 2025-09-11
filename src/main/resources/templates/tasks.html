@@ -30,14 +30,14 @@
         <div th:each="task:${tasks}" class="card card-border bg-base-300 w-96">
             <div class="badge badge-accente m-4" th:text="${task.score}"></div>
             <div class="card-body items-center">
-                <h2 class="card-title" th:text="${task.title}">Criar BD</h2>
-                <p th:text="${task.description}">Modelar e criar o banco de dados no MySQL</p>
+                <h2 class="card-title" th:text="${task.title}"></h2>
+                <p th:text="${task.description}"></p>
                 <div
                     class="radial-progress bg primary text-primary-contetn border-primary border-4"
-                    style="--value:70;"
+                    th:style="${'--value:' + task.status}"
                     aria-valuenow="70"
-                    role="progressbar">
-                    50%
+                    role="progressbar"
+                    th:text="${task.status + '%'}">
                 </div>
             <div>
             <div class="card-actions justify-end m-4">
