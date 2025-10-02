@@ -28,7 +28,7 @@ public class Task {
     @Size(min = 10, message = "Deve ter pelo menos 10 caracteres")
     private String description;
 
-    @Positive
+    @Positive(message = "Por favor digite somente números positivos")
     private int score;
 
     @Min(0) @Max(100)
