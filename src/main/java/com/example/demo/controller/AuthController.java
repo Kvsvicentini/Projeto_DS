@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -26,13 +27,19 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // --- 1. GET: Mostrar Formulário de Registro ---
+    // --- 1. GET: Mostrar Formulário de Login ---
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    // --- 2. GET: Mostrar Formulário de Registro ---
     @GetMapping("/register")
     public String showRegisterForm(User user) {
         return "register_form";
     }
 
-    // --- 2. POST: Processar Registro ---
+    // --- 3. POST: Processar Registro ---
     @PostMapping("/register")
     public String registerUser(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 
@@ -63,6 +70,8 @@ public class AuthController {
         redirect.addFlashAttribute("message", "Registro realizado com sucesso! Faça login.");
 
         // Redireciona para a página de login para que o usuário inicie a sessão
-        return "redirect:/login";
+        return "/auth/login";
     }
+
+    
 }

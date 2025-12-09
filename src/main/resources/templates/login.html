@@ -28,7 +28,7 @@
             <label for="password">Senha:</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <button type="submit">Entrar</button>
+        <button th:href="@{/tasks}" type="submit">Entrar</button>
     </form>
 
     <p>Novo usuário? <a th:href="@{/auth/register}">Registre-se aqui</a></p>

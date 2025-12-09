@@ -36,11 +36,11 @@ public class SecurityConfig {
                                 // Regras de Autorização de Requisições
                                 .authorizeHttpRequests(auth -> auth
                                                 // Permite acesso público à raiz, login, registro e console H2
-                                                .requestMatchers("/", "/login", "/auth/register", "/h2-console/**")
+                                                .requestMatchers("/", "/auth/login", "/auth/register", "/h2-console/**")
                                                 .permitAll()
 
                                                 // Exige autenticação para todas as rotas de tarefas (o núcleo do app)
-                                                .requestMatchers("/tasks/**").authenticated()
+                                                .requestMatchers("/tasks/**").hasAnyAuthority("USER", "ADMIN")
 
                                                 // Protege todas as outras requisições por padrão
                                                 .anyRequest().authenticated())
