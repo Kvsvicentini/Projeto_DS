@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login de Acesso</title>
+    <link rel="stylesheet" th:href="@{/css/theme.css}" /> 
+</head>
+<body>
+    <header>
+        <h2>Acesso ao Gerenciador de Tarefas</h2>
+        <button id="theme-toggle" style="margin-left: 20px; padding: 8px; cursor: pointer;">
+            </button>
+    </header>
+    
+    <div th:if="${param.error}" style="color: red;">
+        Usuário ou senha inválidos.
+    </div>
+    <div th:if="${param.logout}" style="color: green;">
+        Você foi desconectado.
+    </div>
+
+    <form method="POST" th:action="@{/login}">
+        <div>
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p>Novo usuário? <a th:href="@{/auth/register}">Registre-se aqui</a></p>
+    
+    <script th:src="@{/js/theme-switcher.js}"></script>
+</body>
+</html>

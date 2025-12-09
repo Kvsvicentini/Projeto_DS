@@ -1,0 +1,43 @@
+/* Variáveis Padrão (Tema Claro) */
+:root {
+    --background-color: #f0f0f0;
+    --text-color: #333;
+    --header-background: #fff;
+    --border-color: #ccc;
+}
+
+/* Sobrescrita para o Tema Escuro */
+body.dark-mode {
+    --background-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --header-background: #333;
+    --border-color: #555;
+}
+
+/* Estilos de Exemplo Aplicando as Variáveis */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    /* Transição suave */
+    font-family: sans-serif;
+}
+
+header {
+    background-color: var(--header-background);
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+}
+
+th,
+td {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+}

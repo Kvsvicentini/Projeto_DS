@@ -1,52 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dracula">
-
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Tarefas</title>
+    <title>Minhas Tarefas</title>
+    <link rel="stylesheet" th:href="@{/css/theme.css}" /> 
 </head>
-
 <body>
+    <header style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Gerenciador de Tarefas</h1>
+        <div>
+            <button id="theme-toggle" style="margin-right: 10px; padding: 8px; cursor: pointer;">
+                </button>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit">Sair</button>
+            </form>
+        </div>
+    </header>
 
-    <div class="navbar bg-base-200 shadow-sm mb-4">
-        <a class="btn btn-ghost text-xl">Lista de Tarefas</a>
-    </div>
-
-    <a href="/tasks/form" class="btn btn-primary m-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus-icon lucide-circle-plus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
-        Nova tarefa
-    </a>
-
-    <div th:if="${message != null}" role="alert" class="alert alert-success alert-soft m-4">
+    <div th:if="${message}" style="border: 1px solid; padding: 10px; margin-bottom: 15px;">
         <span th:text="${message}"></span>
     </div>
 
-    <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+    <a th:href="@{/tasks/form}">+ Nova Tarefa</a>
 
-        <div th:each="task:${tasks}" class="card card-border bg-base-300 w-96">
-            <div class="badge badge-accente m-4" th:text="${task.score}"></div>
-            <div class="card-body items-center">
-                <h2 class="card-title" th:text="${task.title}"></h2>
-                <p th:text="${task.description}"></p>
-                <div
-                    class="radial-progress bg primary text-primary-contetn border-primary border-4"
-                    th:style="${'--value:' + task.status}"
-                    aria-valuenow="70"
-                    role="progressbar"
-                    th:text="${task.status + '%'}">
-                </div>
-            <div>
-            <div class="card-actions justify-end m-4">
-                <button class="btn btn-error btn-soft">Apagar</button>
-            </div>
-        </div>
+    <hr>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Score</th>
+                <th>Status (%)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.title}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.score}"></td>
+                <td th:text="${task.status}"></td>
+                <td>
+                    <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Editar</a> 
+                    | 
+                    <a th:href="@{/tasks/delete/{id}(id=${task.id})}" onclick="return confirm('Tem certeza?');">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    </main>
+    <p th:if="${tasks.isEmpty()}">Nenhuma tarefa cadastrada ainda.</p>
 
+    <script th:src="@{/js/theme-switcher.js}"></script>
 </body>
-
 </html>

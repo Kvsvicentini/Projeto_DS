@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Novo Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/theme.css}" />
+</head>
+<body>
+    <header>
+        <h2>Registro de Usuário</h2>
+        <button id="theme-toggle" style="margin-left: 20px; padding: 8px; cursor: pointer;">
+            </button>
+    </header>
+
+    <form th:action="@{/auth/register}" th:object="${user}" method="post">
+        
+        <div>
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" th:field="*{username}" required>
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red;"></p>
+        </div>
+
+        <div>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" th:field="*{password}" required>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red;"></p>
+        </div>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <p>Já tem conta? <a th:href="@{/login}">Faça Login</a></p>
+
+    <script th:src="@{/js/theme-switcher.js}"></script>
+</body>
+</html>

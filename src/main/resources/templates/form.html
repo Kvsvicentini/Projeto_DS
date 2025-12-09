@@ -1,43 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dracula">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefa</title>
+    <title>Cadastro/Edição de Tarefa</title>
+    <link rel="stylesheet" th:href="@{/css/theme.css}" /> 
 </head>
-
 <body>
-
-    <form class="mx-auto mt-8 w-lg" method="post" th:object="${task}">
-        <h2 class="text-2xl font-bold text-primary">Nova Tarefa</h2>
-
-        <fieldset class="fieldset">
-            <legend class="fieldset-legend">Título</legend>
-            <input name="title" type="text" class="input" placeholder="Digite o nome da tarefa" />
-            <p class="label text-error" th:errors="*{title}"></p>
-        </fieldset>
-
-        <fieldset class="fieldset">
-            <legend class="fieldset-legend">Descrição</legend>
-            <input name="descrition" type="text" class="input" placeholder="Descreva a tarefa" />
-            <p class="label text-error" th:errors="*{description}"></p>
-        </fieldset>
-
-        <fieldset class="fieldset">
-            <legend class="fieldset-legend">Pontos</legend>
-            <input name="score" type="number" class="input" />
-            <p class="label text-error" th:errors="*{score}"></p>
-        </fieldset>
-
+    <header style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 th:text="${task.id == null} ? 'Nova Tarefa' : 'Editar Tarefa'"></h2>
+        <button id="theme-toggle" style="padding: 8px; cursor: pointer;"></button>
+    </header>
+    
+    <form th:action="@{/tasks}" th:object="${task}" method="post">
+        
+        <input type="hidden" th:field="*{id}">
+        
         <div>
-            <a href="tasks.html" class="btn btn-neutral">Voltar para Tarefas</a>
-            <button class="btn btn-primary">Salvar Tarefas</button>
+            <label>Título:</label>
+            <input type="text" th:field="*{title}" required>
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red;"></p>
         </div>
 
+        <div>
+            <label>Descrição:</label>
+            <textarea th:field="*{description}" required></textarea>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red;"></p>
+        </div>
+        
+        <div>
+            <label>Score (Pontuação):</label>
+            <input type="number" th:field="*{score}">
+            <p th:if="${#fields.hasErrors('score')}" th:errors="*{score}" style="color: red;"></p>
+        </div>
+
+        <div>
+            <label>Status (0-100%):</label>
+            <input type="number" th:field="*{status}">
+            <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" style="color: red;"></p>
+        </div>
+        
+        <button type="submit" th:text="${task.id == null} ? 'Criar Tarefa' : 'Salvar Alterações'"></button>
     </form>
 
+    <a th:href="@{/tasks}">Voltar para a lista</a>
+    
+    <script th:src="@{/js/theme-switcher.js}"></script>
 </body>
 </html>
